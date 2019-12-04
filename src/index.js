@@ -13,10 +13,13 @@ import {
 
 import './config/ReactotronConfig';
 
+import Routes from './routes';
+
 const App = () => {
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#141419" />
+      <Routes />
     </>
   );
 };
