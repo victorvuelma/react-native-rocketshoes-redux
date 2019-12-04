@@ -8,12 +8,12 @@ const Routes = createAppContainer(
   createStackNavigator(
     {
       Home,
-      Cart
+      Cart,
     },
     {
-      headerMode: "none"
-    }
-  )
-)
+      headerMode: 'none',
+    },
+  ),
+);
 
 export default Routes;
