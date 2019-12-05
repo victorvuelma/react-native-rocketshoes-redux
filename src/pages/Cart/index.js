@@ -30,7 +30,15 @@ import {
   TouchButton,
 } from './styles';
 
-function Cart({ products, total, removeFromCart }) {
+function Cart({ products, total, removeFromCart, updateAmountRequest }) {
+  const increaseAmount = product => {
+    updateAmountRequest(product.id, product.amount + 1);
+  };
+
+  const decreaseAmount = product => {
+    updateAmountRequest(product.id, product.amount - 1);
+  };
+
   return (
     <Container>
       <CartContent>
@@ -55,7 +63,7 @@ function Cart({ products, total, removeFromCart }) {
               </ProductInfo>
               <CartOptions>
                 <AmountActions>
-                  <TouchButton>
+                  <TouchButton onPress={() => decreaseAmount(item)}>
                     <Icon
                       name="remove-circle-outline"
                       color={colors.primary}
@@ -63,7 +71,7 @@ function Cart({ products, total, removeFromCart }) {
                     />
                   </TouchButton>
                   <AmountInput value={String(item.amount)} />
-                  <TouchButton>
+                  <TouchButton onPress={() => increaseAmount(item)}>
                     <Icon
                       name="add-circle-outline"
                       color={colors.primary}
