@@ -9,6 +9,8 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 
+import 'intl';
+
 import './config/ReactotronConfig';
 
 import colors from './styles/colors';
