@@ -11,3 +11,10 @@ export function addToCartSuccess(product) {
     product,
   };
 }
+
+export function removeFromCart(id) {
+  return {
+    type: '@cart/REMOVE',
+    id,
+  };
+}

@@ -30,7 +30,7 @@ import {
   TouchButton,
 } from './styles';
 
-function Cart({ products, total }) {
+function Cart({ products, total, removeFromCart }) {
   return (
     <Container>
       <CartContent>
@@ -45,7 +45,7 @@ function Cart({ products, total }) {
                   <ProductTitle>{item.title}</ProductTitle>
                   <ProductPrice>{item.priceFormatted}</ProductPrice>
                 </ProductDetails>
-                <TouchButton>
+                <TouchButton onPress={() => removeFromCart(item.id)}>
                   <Icon
                     name="delete-forever"
                     size={24}
