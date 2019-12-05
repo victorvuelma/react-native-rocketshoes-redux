@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import * as CartActions from '../../store/modules/cart/actions';
+import { formatPrice } from '../../util/format';
 import colors from '../../styles/colors';
 
 import {
@@ -17,7 +20,7 @@ import {
   ProductDetails,
   ProductTitle,
   ProductPrice,
-  CartActions,
+  CartOptions,
   AmountActions,
   AmountInput,
   SubTotalText,
@@ -27,76 +30,77 @@ import {
   TouchButton,
 } from './styles';
 
-import api from '../../services/api';
-
-export default class Cart extends Component {
-  state = {
-    products: [],
-  };
-
-  async componentDidMount() {
-    const response = await api.get('products');
-
-    this.setState({ products: response.data.splice(3, 3) });
-  }
-
-  render() {
-    const { products } = this.state;
-
-    return (
-      <Container>
-        <CartContent>
-          <ProductsList
-            data={products}
-            keyExtractor={product => String(product.id)}
-            renderItem={({ item }) => (
-              <Product>
-                <ProductInfo>
-                  <ProductImage source={{ uri: item.image }} />
-                  <ProductDetails>
-                    <ProductTitle>{item.title}</ProductTitle>
-                    <ProductPrice>{item.price}</ProductPrice>
-                  </ProductDetails>
+function Cart({ products, total }) {
+  return (
+    <Container>
+      <CartContent>
+        <ProductsList
+          data={products}
+          keyExtractor={product => String(product.id)}
+          renderItem={({ item }) => (
+            <Product>
+              <ProductInfo>
+                <ProductImage source={{ uri: item.image }} />
+                <ProductDetails>
+                  <ProductTitle>{item.title}</ProductTitle>
+                  <ProductPrice>{item.priceFormatted}</ProductPrice>
+                </ProductDetails>
+                <TouchButton>
+                  <Icon
+                    name="delete-forever"
+                    size={24}
+                    color={colors.primary}
+                  />
+                </TouchButton>
+              </ProductInfo>
+              <CartOptions>
+                <AmountActions>
                   <TouchButton>
                     <Icon
-                      name="delete-forever"
-                      size={24}
+                      name="remove-circle-outline"
                       color={colors.primary}
+                      size={20}
                     />
                   </TouchButton>
-                </ProductInfo>
-                <CartActions>
-                  <AmountActions>
-                    <TouchButton>
-                      <Icon
-                        name="remove-circle-outline"
-                        color={colors.primary}
-                        size={20}
-                      />
-                    </TouchButton>
-                    <AmountInput value="3" editable={false} />
-                    <TouchButton>
-                      <Icon
-                        name="add-circle-outline"
-                        color={colors.primary}
-                        size={20}
-                      />
-                    </TouchButton>
-                  </AmountActions>
-                  <SubTotalText>R$120,00</SubTotalText>
-                </CartActions>
-              </Product>
-            )}
-          />
-          <Total>
-            <TotalTitle>Total:</TotalTitle>
-            <TotalValue>R$1500,00</TotalValue>
-          </Total>
-          <FinalizeButton>
-            <FinalizeText>Finalizar Pedido</FinalizeText>
-          </FinalizeButton>
-        </CartContent>
-      </Container>
-    );
-  }
+                  <AmountInput value={String(item.amount)} editable={false} />
+                  <TouchButton>
+                    <Icon
+                      name="add-circle-outline"
+                      color={colors.primary}
+                      size={20}
+                    />
+                  </TouchButton>
+                </AmountActions>
+                <SubTotalText>{item.subTotalFormatted}</SubTotalText>
+              </CartOptions>
+            </Product>
+          )}
+        />
+        <Total>
+          <TotalTitle>Total:</TotalTitle>
+          <TotalValue>{total}</TotalValue>
+        </Total>
+        <FinalizeButton>
+          <FinalizeText>Finalizar Pedido</FinalizeText>
+        </FinalizeButton>
+      </CartContent>
+    </Container>
+  );
 }
+
+const mapStateToProps = state => ({
+  products: state.cart.map(product => ({
+    ...product,
+    subTotalFormatted: formatPrice(product.price * product.amount),
+  })),
+  total: formatPrice(
+    state.cart.reduce((total, product) => {
+      return total + product.amount * product.price;
+    }, 0),
+  ),
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

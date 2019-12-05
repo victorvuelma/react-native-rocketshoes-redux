@@ -10,11 +10,12 @@ export const Container = styled.SafeAreaView`
 
 export const TouchButton = styled.TouchableOpacity``;
 
-export const CartContent = styled.View`
+export const CartContent = styled.SafeAreaView`
   background: #fff;
   border-radius: 4px;
-  margin: 20px 20px 0 20px;
+  margin: 20px;
   padding: 22px 15px 10px 22px;
+  max-height: 90%;
 `;
 
 export const ProductsList = styled.FlatList``;
@@ -56,7 +57,7 @@ export const ProductPrice = styled.Text`
   color: #000;
 `;
 
-export const CartActions = styled.View`
+export const CartOptions = styled.View`
   margin-top: 10px;
   background: #eeeeee;
   flex: 1;
