@@ -27,5 +27,17 @@ module.exports = {
     ],
     'import/prefer-default-export': 'off',
     'react/state-in-constructor': 'off',
+    'react/jsx-props-no-spreading': [
+      'warn',
+      {
+        exceptions: ['Header'],
+      },
+    ],
+    'no-console': [
+      'warn',
+      {
+        allow: ['tron'],
+      },
+    ],
   },
 };

@@ -15,7 +15,6 @@ const Routes = createAppContainer(
       Cart,
     },
     {
-      initialRouteName: 'Cart',
       defaultNavigationOptions: options => ({
         header: <Header {...options} />,
       }),

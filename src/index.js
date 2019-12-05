@@ -1,29 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
 import { StatusBar } from 'react-native';
+import { Provider } from 'react-redux';
 
 import 'intl';
-
 import './config/ReactotronConfig';
 
+import store from './store';
 import colors from './styles/colors';
 
-import Header from './components/Header';
 import Routes from './routes';
 
 const App = () => {
   return (
-    <>
+    <Provider store={store}>
       <StatusBar barStyle="light-content" backgroundColor={colors.dark} />
       <Routes />
-    </>
+    </Provider>
   );
 };
 
