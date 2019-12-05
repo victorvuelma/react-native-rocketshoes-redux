@@ -18,7 +18,9 @@ export const CartContent = styled.SafeAreaView`
   max-height: 90%;
 `;
 
-export const ProductsList = styled.FlatList``;
+export const ProductsList = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+})``;
 
 export const Product = styled.View`
   flex-direction: column;
@@ -73,7 +75,9 @@ export const AmountActions = styled.View`
   align-items: center;
 `;
 
-export const AmountInput = styled.TextInput`
+export const AmountInput = styled.TextInput.attrs({
+  editable: false,
+})`
   margin: 0 5px;
   background: #fff;
   font-size: 14px;
@@ -112,7 +116,6 @@ export const TotalValue = styled.Text`
 
 export const FinalizeButton = styled(RectButton)`
   background: ${colors.primary};
-  width: 315px;
   height: 42px;
   justify-content: center;
   align-items: center;

@@ -62,7 +62,7 @@ function Cart({ products, total, removeFromCart }) {
                       size={20}
                     />
                   </TouchButton>
-                  <AmountInput value={String(item.amount)} editable={false} />
+                  <AmountInput value={String(item.amount)} />
                   <TouchButton>
                     <Icon
                       name="add-circle-outline"

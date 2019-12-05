@@ -20,6 +20,7 @@ export const Container = styled.View`
 
 export const ProductsList = styled.FlatList.attrs({
   horizontal: true,
+  showsHorizontalScrollIndicator: false,
 })`
   margin: 20px 0 0 20px;
 `;

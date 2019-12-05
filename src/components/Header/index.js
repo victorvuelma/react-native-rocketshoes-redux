@@ -7,6 +7,7 @@ import {
   Wrapper,
   Container,
   Logo,
+  LogoTouch,
   BasketContainer,
   ProductCount,
 } from './styles';
@@ -15,7 +16,9 @@ function Header({ navigation, cartSize }) {
   return (
     <Wrapper>
       <Container>
-        <Logo />
+        <LogoTouch onPress={() => navigation.navigate('Home')}>
+          <Logo />
+        </LogoTouch>
         <BasketContainer onPress={() => navigation.navigate('Cart')}>
           <Icon name="shopping-basket" size={24} color="#FFF" />
           <ProductCount>{cartSize}</ProductCount>
