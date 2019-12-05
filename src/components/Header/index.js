@@ -16,7 +16,7 @@ function Header({ navigation, cartSize }) {
   return (
     <Wrapper>
       <Container>
-        <LogoTouch onPress={() => navigation.navigate('Home')}>
+        <LogoTouch onPress={() => navigation.goBack()}>
           <Logo />
         </LogoTouch>
         <BasketContainer onPress={() => navigation.navigate('Cart')}>
