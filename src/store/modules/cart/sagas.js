@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 
 import { addToCartSuccess, updateAmountSuccess } from './actions';
@@ -9,9 +10,20 @@ function* addToCart({ id }) {
     state.cart.find(p => p.id === id),
   );
 
+  const stock = yield call(api.get, `stock/${id}`);
+
   const productAmount = productInCart ? productInCart.amount : 0;
+  const stockAmount = stock.data.amount;
 
   const amount = productAmount + 1;
+
+  if (amount > stockAmount) {
+    Alert.alert(
+      'Produto Indisponível',
+      'A quantidade solicitada esta indisponível no estoque.',
+    );
+    return;
+  }
 
   if (productInCart) {
     yield put(updateAmountSuccess(id, amount));
@@ -30,6 +42,17 @@ function* addToCart({ id }) {
 
 function* updateAmount({ id, amount }) {
   if (amount <= 0) return;
+
+  const stock = yield call(api.get, `stock/${id}`);
+  const stockAmount = stock.data.amount;
+
+  if (amount > stockAmount) {
+    Alert.alert(
+      'Produto Indisponível',
+      'A quantidade solicitada esta indisponível no estoque.',
+    );
+    return;
+  }
 
   yield put(updateAmountSuccess(id, amount));
 }
