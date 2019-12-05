@@ -28,6 +28,8 @@ import {
   TotalTitle,
   TotalValue,
   TouchButton,
+  EmptyContainer,
+  EmptyText,
 } from './styles';
 
 function Cart({ products, total, removeFromCart, updateAmountRequest }) {
@@ -42,55 +44,63 @@ function Cart({ products, total, removeFromCart, updateAmountRequest }) {
   return (
     <Container>
       <CartContent>
-        <ProductsList
-          data={products}
-          keyExtractor={product => String(product.id)}
-          renderItem={({ item }) => (
-            <Product>
-              <ProductInfo>
-                <ProductImage source={{ uri: item.image }} />
-                <ProductDetails>
-                  <ProductTitle>{item.title}</ProductTitle>
-                  <ProductPrice>{item.priceFormatted}</ProductPrice>
-                </ProductDetails>
-                <TouchButton onPress={() => removeFromCart(item.id)}>
-                  <Icon
-                    name="delete-forever"
-                    size={24}
-                    color={colors.primary}
-                  />
-                </TouchButton>
-              </ProductInfo>
-              <CartOptions>
-                <AmountActions>
-                  <TouchButton onPress={() => decreaseAmount(item)}>
-                    <Icon
-                      name="remove-circle-outline"
-                      color={colors.primary}
-                      size={20}
-                    />
-                  </TouchButton>
-                  <AmountInput value={String(item.amount)} />
-                  <TouchButton onPress={() => increaseAmount(item)}>
-                    <Icon
-                      name="add-circle-outline"
-                      color={colors.primary}
-                      size={20}
-                    />
-                  </TouchButton>
-                </AmountActions>
-                <SubTotalText>{item.subTotalFormatted}</SubTotalText>
-              </CartOptions>
-            </Product>
-          )}
-        />
-        <Total>
-          <TotalTitle>Total:</TotalTitle>
-          <TotalValue>{total}</TotalValue>
-        </Total>
-        <FinalizeButton>
-          <FinalizeText>Finalizar Pedido</FinalizeText>
-        </FinalizeButton>
+        {products.length ? (
+          <>
+            <ProductsList
+              data={products}
+              keyExtractor={product => String(product.id)}
+              renderItem={({ item }) => (
+                <Product>
+                  <ProductInfo>
+                    <ProductImage source={{ uri: item.image }} />
+                    <ProductDetails>
+                      <ProductTitle>{item.title}</ProductTitle>
+                      <ProductPrice>{item.priceFormatted}</ProductPrice>
+                    </ProductDetails>
+                    <TouchButton onPress={() => removeFromCart(item.id)}>
+                      <Icon
+                        name="delete-forever"
+                        size={24}
+                        color={colors.primary}
+                      />
+                    </TouchButton>
+                  </ProductInfo>
+                  <CartOptions>
+                    <AmountActions>
+                      <TouchButton onPress={() => decreaseAmount(item)}>
+                        <Icon
+                          name="remove-circle-outline"
+                          color={colors.primary}
+                          size={20}
+                        />
+                      </TouchButton>
+                      <AmountInput value={String(item.amount)} />
+                      <TouchButton onPress={() => increaseAmount(item)}>
+                        <Icon
+                          name="add-circle-outline"
+                          color={colors.primary}
+                          size={20}
+                        />
+                      </TouchButton>
+                    </AmountActions>
+                    <SubTotalText>{item.subTotalFormatted}</SubTotalText>
+                  </CartOptions>
+                </Product>
+              )}
+            />
+            <Total>
+              <TotalTitle>Total:</TotalTitle>
+              <TotalValue>{total}</TotalValue>
+            </Total>
+            <FinalizeButton>
+              <FinalizeText>Finalizar Pedido</FinalizeText>
+            </FinalizeButton>
+          </>
+        ) : (
+          <EmptyContainer>
+            <EmptyText>Não há produtos no carrinho.</EmptyText>
+          </EmptyContainer>
+        )}
       </CartContent>
     </Container>
   );

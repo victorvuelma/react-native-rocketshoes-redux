@@ -128,3 +128,15 @@ export const FinalizeText = styled.Text`
   font-size: 14px;
   text-transform: uppercase;
 `;
+
+export const EmptyContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0 20px;
+`;
+
+export const EmptyText = styled.Text`
+  color: #999;
+  font-weight: bold;
+  font-size: 16;
+`;
