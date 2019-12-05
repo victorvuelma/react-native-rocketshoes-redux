@@ -8,13 +8,15 @@ import './config/ReactotronConfig';
 import store from './store';
 import colors from './styles/colors';
 
+import { setNavigator } from './services/navigation';
+
 import Routes from './routes';
 
 const App = () => {
   return (
     <Provider store={store}>
       <StatusBar barStyle="light-content" backgroundColor={colors.dark} />
-      <Routes />
+      <Routes ref={nav => setNavigator(nav)} />
     </Provider>
   );
 };

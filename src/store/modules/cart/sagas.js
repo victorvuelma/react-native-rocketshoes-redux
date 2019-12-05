@@ -4,6 +4,7 @@ import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 import { addToCartSuccess, updateAmountSuccess } from './actions';
 import { formatPrice } from '../../../util/format';
 import api from '../../../services/api';
+import { navigate } from '../../../services/navigation';
 
 function* addToCart({ id }) {
   const productInCart = yield select(state =>
@@ -37,6 +38,8 @@ function* addToCart({ id }) {
     };
 
     yield put(addToCartSuccess(product));
+
+    navigate('Cart');
   }
 }
 
