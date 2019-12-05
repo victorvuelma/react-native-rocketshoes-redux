@@ -21,7 +21,6 @@ import Routes from './routes';
 const App = () => {
   return (
     <>
-      <Header />
       <StatusBar barStyle="light-content" backgroundColor={colors.dark} />
       <Routes />
     </>
