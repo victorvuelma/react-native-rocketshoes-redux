@@ -27,17 +27,11 @@ module.exports = {
     ],
     'import/prefer-default-export': 'off',
     'react/state-in-constructor': 'off',
-    'react/jsx-props-no-spreading': [
-      'warn',
-      {
-        exceptions: ['Header'],
-      },
-    ],
-    'no-console': [
-      'warn',
-      {
-        allow: ['tron'],
-      },
+    'react/jsx-props-no-spreading': ['warn', { exceptions: ['Header'] }],
+    'no-console': ['warn', { allow: ['tron'] }],
+    'no-param-reassign': [
+      'error',
+      { props: true, ignorePropertyModificationsFor: ['draft'] },
     ],
   },
 };
